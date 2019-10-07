@@ -1,0 +1,4 @@
+AuthName "GLOBAL"
+AuthType Basic
+AuthUserFile /home/users/mace/www/boote/admin/.htpasswd
+require valid-user

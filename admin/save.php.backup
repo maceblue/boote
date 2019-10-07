@@ -1,0 +1,148 @@
+<?php
+include_once('../include/conf.php');
+
+$id				= $_REQUEST['id'];
+$categorie		= $_REQUEST['categorie'];
+$name			= $_REQUEST['name'];
+$price			= $_REQUEST['price'];
+$length			= $_REQUEST['length'];
+$width			= $_REQUEST['width'];
+$depth			= $_REQUEST['depth'];
+$year			= $_REQUEST['year'];
+$material		= $_REQUEST['material'];
+$hoursused		= $_REQUEST['hoursused'];
+$cabines		= $_REQUEST['cabines'];
+$motorcompany	= $_REQUEST['motorcompany'];
+$motorcount		= $_REQUEST['motorcount'];
+$power			= $_REQUEST['power'];
+$oiltank		= $_REQUEST['oiltank'];
+$watertank		= $_REQUEST['watertank'];
+$status			= $_REQUEST['status'];
+$location		= $_REQUEST['location'];
+$equipment		= $_REQUEST['equipment'];
+$sail			= $_REQUEST['sail'];
+$arrangement	= $_REQUEST['arrangement'];
+$pantry			= $_REQUEST['pantry'];
+$instruments	= $_REQUEST['instruments'];
+$roof			= $_REQUEST['roof'];
+$etc			= $_REQUEST['etc'];
+$statement		= $_REQUEST['statement'];
+$sale			= $_REQUEST['sale'];
+
+$db_link = mysql_connect($host, $user, $pass) or die("Keine Verbindung möglich: " . mysql_error());
+if($db_link) {
+	mysql_select_db($database) OR die(mysql_error());
+
+	if($id==""){ #neues Boot anlegen
+	$query = mysql_query("INSERT INTO boote (
+												categorie,
+												name,
+												price,
+												length,
+												width,
+												depth,
+												year,
+												material,
+												hoursused,
+												cabines, 
+												motorcompany, 
+												motorcount, 
+												power, 
+												oiltank,
+												watertank, 
+												status, 
+												location, 
+												equipment, 
+												sail,
+												arrangement,
+												pantry,
+												instruments,
+												roof,
+												etc,
+												statement,
+												sale
+											)
+
+											VALUES (
+														'$categorie',
+														'$name',
+														'$price',
+														'$length',
+														'$width',
+														'$depth',
+														'$year',
+														'$material',
+														'$hoursused',
+														'$cabines', 
+														'$motorcompany', 
+														'$motorcount', 
+														'$power', 
+														'$oiltank',
+														'$watertank', 
+														'$status', 
+														'$location', 
+														'$equipment', 
+														'$sail',
+														'$arrangement',
+														'$pantry',
+														'$instruments',
+														'$roof',
+														'$etc',
+														'$statement',
+														'$sale'
+
+													)
+
+						") or die 
+						("Fehler beim Anlegen, Daten konnten nicht eingetragen werden!<br>" . mysql_error());
+	
+	} else { #vorhandenes Boot editieren 
+$statement = str_replace("'",".",$statement);
+$temp = "UPDATE boote SET
+													categorie='$categorie',
+													name='$name',
+													price='$price',
+													length='$length',
+													width='$width',
+													depth='$depth',
+													year='$year',
+													material='$material',
+													hoursused='$hoursused',
+													cabines='$cabines',
+													motorcompany='$motorcompany',
+													motorcount='$motorcount',
+													power='$power',
+													oiltank='$oiltank',
+													watertank='$watertank',
+													status='$status',
+													location='$location',
+													equipment='$equipment',
+													sail='$sail',
+													arrangement='$arrangement',
+													pantry='$pantry',
+													instruments='$instruments',
+													roof='$roof',
+													etc='$etc',
+													statement='$statement',
+													sale='$sale'
+												
+									WHERE id=".$id; 
+
+$temp = str_replace('\n','',$temp);
+$temp = str_replace('\t','',$temp);
+$temp = str_replace('\r','',$temp);
+
+#print $temp; exit;
+		$query = mysql_query($temp) 
+						or die("Datenbankfehler!".mysql_error());
+
+		
+	}
+					
+	if($query) {
+		echo "<center><h3>Daten eingetragen!</h3><br>";
+	} else {
+		echo "Konnte Daten nicht eintragen!";
+	}
+}
+?>
