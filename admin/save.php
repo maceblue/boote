@@ -1,7 +1,7 @@
 <?php
 include_once('../include/conf.php');
 
-$id			= $_REQUEST['id'];
+$id			    = $_REQUEST['id'];
 $categorie		= $_REQUEST['categorie'];
 $name			= $_REQUEST['name'];
 $price			= $_REQUEST['price'];
@@ -12,7 +12,7 @@ $year			= $_REQUEST['year'];
 $material		= $_REQUEST['material'];
 $hoursused		= $_REQUEST['hoursused'];
 $cabines		= $_REQUEST['cabines'];
-$motorcompany		= $_REQUEST['motorcompany'];
+$motorcompany	= $_REQUEST['motorcompany'];
 $motorcount		= $_REQUEST['motorcount'];
 $power			= $_REQUEST['power'];
 $oiltank		= $_REQUEST['oiltank'];
@@ -21,9 +21,9 @@ $status			= $_REQUEST['status'];
 $location		= $_REQUEST['location'];
 $equipment		= $_REQUEST['equipment'];
 $sail			= $_REQUEST['sail'];
-$arrangement		= $_REQUEST['arrangement'];
+$arrangement	= $_REQUEST['arrangement'];
 $pantry			= $_REQUEST['pantry'];
-$instruments		= $_REQUEST['instruments'];
+$instruments	= $_REQUEST['instruments'];
 $roof			= $_REQUEST['roof'];
 $etc			= $_REQUEST['etc'];
 $statement		= $_REQUEST['statement'];
