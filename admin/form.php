@@ -5,12 +5,12 @@
 <script type="text/javascript">
 
 function ask(url){
-Check = confirm("wirklich l�schen?");
+Check = confirm("wirklich löschen?");
 if (Check == true)
   document.location.href=url;
 }
 function askboat(url){
-Check = confirm("wirklich l�schen?");
+Check = confirm("wirklich löschen?");
 if (Check == true)
   document.location.href=url+"&action=delboat";
 }
@@ -32,7 +32,7 @@ if($id!=""){
     if($action=="delboat"){
         $sql = "DELETE FROM `boote` WHERE id='".$id."'";
         $pdo->query($sql);
-        echo "Boot gel�scht!";
+        echo "Boot gelöscht!";
     } else {
 
         $sql = "SELECT * FROM `boote` WHERE id=".$id;
@@ -80,7 +80,7 @@ if($id!=""){
             $stmnt->execute();
             unlink("../images/boats/detail/".$delete);
             unlink("../images/boats/thumbs/".$delete);
-            echo $delete." gel�scht!";
+            echo $delete." gelöscht!";
             $picsarray = explode(",",$picsnew);
             $picsanz = count($picsarray);
         }
@@ -170,16 +170,16 @@ echo "
 		<td>Einrichtung & Aufteilung:</td><td><textarea cols='40' rows='5' name='arrangement'>".$arrangement."</textarea></td>
 	</tr>
 	<tr>
-		<td>K�che:</td><td><textarea cols='40' rows='5' name='pantry'>".$pantry."</textarea></td>
+		<td>Küche:</td><td><textarea cols='40' rows='5' name='pantry'>".$pantry."</textarea></td>
 	</tr>
 	<tr>
 		<td>Nautische Instrumente:</td><td><textarea cols='40' rows='5' name='instruments'>".$instruments."</textarea></td>
 	</tr>
 	<tr>
-		<td>Planen & D�cher:</td><td><textarea cols='40' rows='5' name='roof'>".$roof."</textarea></td>
+		<td>Planen & Dächer:</td><td><textarea cols='40' rows='5' name='roof'>".$roof."</textarea></td>
 	</tr>
 	<tr>
-		<td>sonstiges Zubeh�r:</td><td><textarea cols='40' rows='5' name='etc'>".$etc."</textarea></td>
+		<td>sonstiges Zubehör:</td><td><textarea cols='40' rows='5' name='etc'>".$etc."</textarea></td>
 	</tr>
 	<tr>
 		<td>Bemerkung:</td><td><textarea cols='40' rows='5' name='statement'>".$statement."</textarea></td>
