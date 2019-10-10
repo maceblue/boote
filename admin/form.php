@@ -84,7 +84,7 @@ if($id!=""){
             $picsarray = explode(",",$picsnew);
             $picsanz = count($picsarray);
         }
-        echo "<a href='#' style='display:block; width:200px; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:askboat('form.php?id=".$id."');>ganzes Boot l�schen</a><br><br>";
+        echo "<a href='#' style='display:block; width:200px; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:askboat('form.php?id=".$id."');>ganzes Boot löschen</a><br><br>";
         echo "<table><tr>";
         for($i=0;$i<$picsanz;$i++){
             echo "<td>
@@ -94,7 +94,7 @@ if($id!=""){
         echo "</tr><tr>";
         for($i=0;$i<$picsanz;$i++){
             echo "<td>
-                    <a href='' style='display:block; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:ask('form.php?id=".$id."&delete=".$picsarray[$i]."');>l�schen</a>
+                    <a href='' style='display:block; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:ask('form.php?id=".$id."&delete=".$picsarray[$i]."');>löschen</a>
                 </td>";
         }
         echo "</tr></table><br>";
