@@ -2,7 +2,7 @@
 <head></head>
 <body>
 <center>
-<h4>Fotos f�r Boot hochladen</h4>
+<h4>Fotos für Boot hochladen</h4>
 
 <?php
 $id=$_REQUEST['id'];
@@ -10,7 +10,7 @@ $save=$_REQUEST['save'];
 $max_file_size = $_REQUEST['max_file_size'];
 
 if($id==""){ 
-	echo "Fehler: Keine ID bestimmt f�r Bootszugeh�rigkeit!"; 
+	echo "Fehler: Keine ID bestimmt für Bootszugehörigkeit!";
 } else {
 
 	if($save=="true"){
@@ -200,7 +200,7 @@ if($id==""){
             $pdo = new PDO('mysql:host='.$host.'; dbname='.$database, $user, $pass);
             $sql = "SELECT pics FROM `boote` WHERE id=".$id;
             foreach ($pdo->query($sql) as $row) {
-                $pics = $row;
+                $pics = $row['pics'];
                 if ($pics == "") {
                     $pics = $image_name;
                 } else {
