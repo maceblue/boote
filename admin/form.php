@@ -5,12 +5,12 @@
 <script type="text/javascript">
 
 function ask(url){
-Check = confirm("wirklich löschen?");
+Check = confirm("wirklich lï¿½schen?");
 if (Check == true)
   document.location.href=url;
 }
 function askboat(url){
-Check = confirm("wirklich löschen?");
+Check = confirm("wirklich lï¿½schen?");
 if (Check == true)
   document.location.href=url+"&action=delboat";
 }
@@ -27,84 +27,81 @@ $delete = $_REQUEST['delete'];
 
 if($id!=""){
 	include_once('../include/conf.php');
-	$db_link = mysql_connect($host, $user, $pass) or die("Derzeit keine Verbindung zur Datenbank möglich: " . mysql_error());
+    $pdo = new PDO('mysql:host='.$host.'; dbname='.$database, $user, $pass);
 
-	if($db_link) {
-		mysql_select_db($database) OR die(mysql_error());
+    if($action=="delboat"){
+        $sql = "DELETE FROM `boote` WHERE id='".$id."'";
+        $pdo->query($sql);
+        echo "Boot gelï¿½scht!";
+    } else {
 
-		if($action=="delboat"){
-			$result = mysql_query("DELETE FROM `boote` WHERE id='".$id."'");
-			echo "Boot gelöscht!";
-		} else {
-		
-			$result = mysql_query("SELECT * FROM `boote` WHERE id=".$id);
-			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-				$categorie = $row['categorie'];
-				$name = $row['name'];
-				$price = $row['price'];
-				$length = $row['length'];
-				$width = $row['width'];
-				$depth = $row['depth'];
-				$year = $row['year'];
-				$material = $row['material'];
-				$hoursused = $row['hoursused'];
-				$cabines = $row['cabines'];
-				$motorcompany = $row['motorcompany'];
-				$motorcount = $row['motorcount'];
-				$power = $row['power'];
-				$oiltank = $row['oiltank'];
-				$watertank = $row['watertank'];
-				$status = $row['status'];
-				$location = $row['location'];
-				$equipment = $row['equipment'];
-				$sail = $row['sail'];
-				$arrangement = $row['arrangement'];
-				$instruments = $row['instruments'];
-				$pantry = $row['pantry'];
-				$roof = $row['roof'];
-				$etc = $row['etc'];
-				$statement = $row['statement'];
-				$pics = $row['pics'];
-				$sale = $row['sale'];
-			}
-			$picsarray = explode(",",$pics);
-			$picsanz = count($picsarray);
-			if($delete!=""){
-				$picsnew="";
-				for($i=0;$i<$picsanz;$i++){
-					#echo $picsarray[$i]." ".$delete."<br>";
-					if($picsarray[$i]!=$delete){ 
-						$picsnew .= $picsarray[$i].",";
-					}
-				}
-				$picsnew = substr($picsnew,0,-1);
-				#echo "query=UPDATE `boote` SET pics='".$picsnew."' WHERE id=".$id;
-				$result = mysql_query("UPDATE `boote` SET pics='".$picsnew."' WHERE id=".$id);
-				unlink("../images/boats/detail/".$delete);
-				unlink("../images/boats/thumbs/".$delete);
-				echo $delete." gelöscht!";
-				$picsarray = explode(",",$picsnew);
-				$picsanz = count($picsarray);
-			}
-			echo "<a href='#' style='display:block; width:200px; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:askboat('form.php?id=".$id."');>ganzes Boot löschen</a><br><br>";
-			echo "<table><tr>";
-			for($i=0;$i<$picsanz;$i++){
-				echo "<td>
-						<img src='../images/boats/thumbs/".$picsarray[$i]."' width=70px style='border:1px solid lightblue;'>
-					</td>";
-			}
-			echo "</tr><tr>";
-			for($i=0;$i<$picsanz;$i++){
-				echo "<td>
-						<a href='' style='display:block; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:ask('form.php?id=".$id."&delete=".$picsarray[$i]."');>löschen</a>
-					</td>";
-			}
-			echo "</tr></table><br>";
-			echo "<a href='pic_upload.php?id=".$id."' style='display:block; background-color:silver; border:1px solid black; color:black; text-decoration:none; text-align:center; width:200px;'>neues Foto hochladen</a><br><br>";
-		}
+        $sql = "SELECT * FROM `boote` WHERE id=".$id;
+        foreach ($pdo->query($sql) as $row) {
+            $categorie = $row['categorie'];
+            $name = $row['name'];
+            $price = $row['price'];
+            $length = $row['length'];
+            $width = $row['width'];
+            $depth = $row['depth'];
+            $year = $row['year'];
+            $material = $row['material'];
+            $hoursused = $row['hoursused'];
+            $cabines = $row['cabines'];
+            $motorcompany = $row['motorcompany'];
+            $motorcount = $row['motorcount'];
+            $power = $row['power'];
+            $oiltank = $row['oiltank'];
+            $watertank = $row['watertank'];
+            $status = $row['status'];
+            $location = $row['location'];
+            $equipment = $row['equipment'];
+            $sail = $row['sail'];
+            $arrangement = $row['arrangement'];
+            $instruments = $row['instruments'];
+            $pantry = $row['pantry'];
+            $roof = $row['roof'];
+            $etc = $row['etc'];
+            $statement = $row['statement'];
+            $pics = $row['pics'];
+            $sale = $row['sale'];
+        }
+        $picsarray = explode(",",$pics);
+        $picsanz = count($picsarray);
+        if($delete!=""){
+            $picsnew="";
+            for($i=0;$i<$picsanz;$i++){
+                #echo $picsarray[$i]." ".$delete."<br>";
+                if($picsarray[$i]!=$delete){
+                    $picsnew .= $picsarray[$i].",";
+                }
+            }
+            $picsnew = substr($picsnew,0,-1);
+            $stmnt = $pdo->prepare("UPDATE `boote` SET pics='".$picsnew."' WHERE id=".$id);
+            $stmnt->execute();
+            unlink("../images/boats/detail/".$delete);
+            unlink("../images/boats/thumbs/".$delete);
+            echo $delete." gelï¿½scht!";
+            $picsarray = explode(",",$picsnew);
+            $picsanz = count($picsarray);
+        }
+        echo "<a href='#' style='display:block; width:200px; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:askboat('form.php?id=".$id."');>ganzes Boot lï¿½schen</a><br><br>";
+        echo "<table><tr>";
+        for($i=0;$i<$picsanz;$i++){
+            echo "<td>
+                    <img src='../images/boats/thumbs/".$picsarray[$i]."' width=70px style='border:1px solid lightblue;'>
+                </td>";
+        }
+        echo "</tr><tr>";
+        for($i=0;$i<$picsanz;$i++){
+            echo "<td>
+                    <a href='' style='display:block; background-color:silver; border:1px solid black; color:black; text-decoration:none;text-align:center;' onclick=javascript:ask('form.php?id=".$id."&delete=".$picsarray[$i]."');>lï¿½schen</a>
+                </td>";
+        }
+        echo "</tr></table><br>";
+        echo "<a href='pic_upload.php?id=".$id."' style='display:block; background-color:silver; border:1px solid black; color:black; text-decoration:none; text-align:center; width:200px;'>neues Foto hochladen</a><br><br>";
+    }
 
-		
-	}
+
 	
 }
 if($action=="")
@@ -173,16 +170,16 @@ echo "
 		<td>Einrichtung & Aufteilung:</td><td><textarea cols='40' rows='5' name='arrangement'>".$arrangement."</textarea></td>
 	</tr>
 	<tr>
-		<td>Küche:</td><td><textarea cols='40' rows='5' name='pantry'>".$pantry."</textarea></td>
+		<td>Kï¿½che:</td><td><textarea cols='40' rows='5' name='pantry'>".$pantry."</textarea></td>
 	</tr>
 	<tr>
 		<td>Nautische Instrumente:</td><td><textarea cols='40' rows='5' name='instruments'>".$instruments."</textarea></td>
 	</tr>
 	<tr>
-		<td>Planen & Dächer:</td><td><textarea cols='40' rows='5' name='roof'>".$roof."</textarea></td>
+		<td>Planen & Dï¿½cher:</td><td><textarea cols='40' rows='5' name='roof'>".$roof."</textarea></td>
 	</tr>
 	<tr>
-		<td>sonstiges Zubehör:</td><td><textarea cols='40' rows='5' name='etc'>".$etc."</textarea></td>
+		<td>sonstiges Zubehï¿½r:</td><td><textarea cols='40' rows='5' name='etc'>".$etc."</textarea></td>
 	</tr>
 	<tr>
 		<td>Bemerkung:</td><td><textarea cols='40' rows='5' name='statement'>".$statement."</textarea></td>

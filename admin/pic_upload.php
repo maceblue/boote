@@ -2,7 +2,7 @@
 <head></head>
 <body>
 <center>
-<h4>Fotos für Boot hochladen</h4>
+<h4>Fotos fï¿½r Boot hochladen</h4>
 
 <?php
 $id=$_REQUEST['id'];
@@ -10,7 +10,7 @@ $save=$_REQUEST['save'];
 $max_file_size = $_REQUEST['max_file_size'];
 
 if($id==""){ 
-	echo "Fehler: Keine ID bestimmt für Bootszugehörigkeit!"; 
+	echo "Fehler: Keine ID bestimmt fï¿½r Bootszugehï¿½rigkeit!"; 
 } else {
 
 	if($save=="true"){
@@ -197,22 +197,20 @@ if($id==""){
 
 			#update database
 			include_once('../include/conf.php');
-			$db_link = mysql_connect($host, $user, $pass) or die("Keine Verbindung möglich: " . mysql_error());
-			if($db_link) {
-				mysql_select_db($database) OR die(mysql_error());
-				$result = mysql_query("SELECT pics FROM `boote` WHERE id=".$id);
-				$row = mysql_fetch_row($result);
-				$pics = $row[0];
-				if($pics=="") {
-					$pics = $image_name;
-				} else {
-					$pics .= ",".$image_name;
-				}
-				echo "aktuelle Bilder:".$pics."<br>";
-				echo "trying make query:UPDATE boote SET pics='".$pics."' WHERE id=".$id;
-				$query = mysql_query("UPDATE boote SET pics='".$pics."' WHERE id=".$id) or die ("Datenbankf	ehler!".mysql_error());
-			}
-
+            $pdo = new PDO('mysql:host='.$host.'; dbname='.$database, $user, $pass);
+            $sql = "SELECT pics FROM `boote` WHERE id=".$id;
+            foreach ($pdo->query($sql) as $row) {
+                $pics = $row;
+                if ($pics == "") {
+                    $pics = $image_name;
+                } else {
+                    $pics .= "," . $image_name;
+                }
+                echo "aktuelle Bilder:" . $pics . "<br>";
+                echo "trying make query:UPDATE boote SET pics='" . $pics . "' WHERE id=" . $id;
+                $stmnt = $pdo->prepare("UPDATE boote SET pics='" . $pics . "' WHERE id=" . $id);
+                $stmnt->execute();
+            }
 			echo "erfolgreich!<h1>Foto ".$image_name." erfolgreich angelegt!</h1>";
 			echo '<img src="'.$new_detail_name.'"><br><a href="pic_upload.php?id='.$id.'">noch eins hochladen</a>';
 		}
