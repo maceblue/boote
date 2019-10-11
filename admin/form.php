@@ -25,6 +25,10 @@ $id = $_REQUEST['id'];
 $action = $_REQUEST['action'];
 $delete = $_REQUEST['delete'];
 
+$categorie = $name = $price = $length = $width = $depth = $year = $material = $hoursused = $cabines = $motorcompany = '';
+$motorcount = $power = $oiltank = $watertank = $status = $location = $equipment = $sail = $arrangement = $instruments = '';
+$pantry = $roof = $etc = $statement = $pics = $sale = '';
+
 if ($id != "") {
 	include_once('../include/conf.php');
     $pdo = new PDO('mysql:host='.$host.'; dbname='.$database, $user, $pass);
