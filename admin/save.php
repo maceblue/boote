@@ -1,5 +1,4 @@
 <?php
-print_r($_REQUEST); exit;
 include_once('../include/conf.php');
 
 $id			    = $_REQUEST['id'];
@@ -31,7 +30,7 @@ $statement		= $_REQUEST['statement'];
 $sale			= $_REQUEST['sale'];
 
 $values = [$categorie,$name,$price,$length,$width,$depth,$year,$material,$hoursused,$cabines,$motorcompany,$motorcount,$power,$oiltank,$watertank,$status,$location,$equipment,$sail,$arrangement,$pantry,$instruments,$roof,$etc,$statement,$sale];
-
+print_r($values); exit;
 $pdo = new PDO('mysql:host='.$host.'; dbname='.$database, $user, $pass);
 
 if($id==""){ #neues Boot anlegen
