@@ -1,4 +1,5 @@
 <?php
+print_r($_REQUEST); exit;
 include_once('../include/conf.php');
 
 $id			    = $_REQUEST['id'];
