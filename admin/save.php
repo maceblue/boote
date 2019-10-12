@@ -94,6 +94,7 @@ if($id==""){ #neues Boot anlegen
 
 	");
 	$stmnt->execute($values);
+    echo "<center><h3>Daten eingetragen!</h3><br>";
 
 	
 } else { #vorhandenes Boot editieren 
@@ -129,9 +130,7 @@ if($id==""){ #neues Boot anlegen
 									WHERE id= :id");
 	if($stmnt->execute(array('id' => $id))) {
 		echo "<center><h3>Daten eingetragen!</h3><br>";
-	} else {
-		echo "<center><h3>Daten eingetragen!</h3><br>";
-	}	
+	}
 
 #$temp = str_replace('\n','',$temp);
 #$temp = str_replace('\t','',$temp);
