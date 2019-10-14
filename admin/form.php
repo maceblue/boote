@@ -5,10 +5,9 @@
 
 <script type="text/javascript">
     function ask(url){
-        alert(url);
         Check = confirm("wirklich löschen?");
         if (Check == true) {
-            document.location.href = url;
+            document.location.href = url + "";
         }
     }
     function askboat(url){
