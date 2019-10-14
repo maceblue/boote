@@ -68,7 +68,7 @@ if ($id != "") {
             $pics = $row['pics'];
             $sale = $row['sale'];
         }
-        print_r($pics); exit;
+
         $picsarray = explode(",",$pics);
         $picsanz = count($picsarray);
         if ($delete != "") {
@@ -79,6 +79,7 @@ if ($id != "") {
                 }
             }
             $picsnew = substr($picsnew,0,-1);
+            echo $picsnew; exit;
             $stmnt = $pdo->prepare("UPDATE `boote` SET pics='".$picsnew."' WHERE id=".$id);
             $stmnt->execute();
             unlink("../images/boats/detail/".$delete);
