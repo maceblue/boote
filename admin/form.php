@@ -68,6 +68,7 @@ if ($id != "") {
             $pics = $row['pics'];
             $sale = $row['sale'];
         }
+        print_r($pics); exit;
         $picsarray = explode(",",$pics);
         $picsanz = count($picsarray);
         if ($delete != "") {
