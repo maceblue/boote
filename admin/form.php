@@ -5,6 +5,7 @@
 
 <script type="text/javascript">
     function ask(url){
+        alert(url);
         Check = confirm("wirklich löschen?");
         if (Check == true) {
             document.location.href = url;
@@ -79,7 +80,7 @@ if ($id != "") {
                 }
             }
             $picsnew = substr($picsnew,0,-1);
-            echo $picsnew; exit;
+
             $stmnt = $pdo->prepare("UPDATE `boote` SET pics='".$picsnew."' WHERE id=".$id);
             $stmnt->execute();
             unlink("../images/boats/detail/".$delete);
